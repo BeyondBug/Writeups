@@ -19,7 +19,7 @@ The objective is to identify the photographed building and determine its locatio
 
 The original challenge image shows a distinctive low-rise building constructed from pale stone blocks.
 
-![Original challenge photograph](challenge_image.png)
+<img width="1536" height="805" alt="image" src="https://github.com/user-attachments/assets/663cbb0f-7c74-4674-8f2f-af7f4805c2ff" />
 
 ### Visual observations
 
@@ -39,7 +39,7 @@ The sign is the most useful piece of evidence because it contains the institutio
 
 ## 3. Reading the Sign
 
-A second photograph/reference image makes the sign easier to inspect.
+A photograph/reference image makes the sign easier to inspect.
 
 The visible Russian/Kazakh text identifies the institution as a museum of the history of mining and smelting in **Zhezdy**, named after **Maken Toregeldin**.
 
@@ -57,9 +57,8 @@ This provides the critical geographical lead: **Zhezdy, Kazakhstan**.
 
 ## 4. Visual Cross-Reference
 
-The third image provides another clear view of the same entrance and its identifying sign.
+The second image provides another clear view of the same entrance and its identifying sign.
 
-![Second reference image](reference_image_2.png)
 
 The following visual elements are consistent between the challenge photograph and the reference:
 
