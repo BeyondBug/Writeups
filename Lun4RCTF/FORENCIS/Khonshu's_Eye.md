@@ -1,4 +1,4 @@
-# Khonshu's Eye 
+<img width="1600" height="866" alt="WhatsApp Image 2026-09-21 at 11 58 52 AM" src="https://github.com/user-attachments/assets/c150bc0b-6be9-4b4a-96fb-df3c5535a64f" /># Khonshu's Eye 
 
 **Category:** Forensics / Steganography  
 **Flag Format:** `Lun4R{...}`
@@ -79,6 +79,8 @@ The second appears to be a complete flag:
 Lun4R{th1s_1s_n0t_th3_r34l_fl4g_k33p_d1gg1ng}
 ```
 
+<img width="1600" height="866" alt="image" src="https://github.com/user-attachments/assets/2ca35184-5a5f-4888-a7fa-0fd1c6a4dcfc" />
+
 
 
 Although the second value follows the expected flag format, its content explicitly says:
@@ -114,6 +116,9 @@ The result is:
 ```text
 Fu4q0jS1yr_2024
 ```
+
+<img width="1600" height="866" alt="image" src="https://github.com/user-attachments/assets/c15d3340-294b-4af0-9fa6-36bda7d96614" />
+
 
 This does not immediately resemble readable text, but its structure suggests another lightweight text transformation may have been used.
 
@@ -197,6 +202,9 @@ PNG image
 +
 hidden ZIP archive
 ```
+
+<img width="875" height="156" alt="image" src="https://github.com/user-attachments/assets/dcd67447-55ee-4f5a-a748-34e734bf391f" />
+
 
 ---
 
@@ -563,6 +571,9 @@ Each tool served a specific purpose:
 - `base32` — decoding the final extracted payload
 
 ---
+
+![Uploading image.png…]()
+
 
 # 15. Conclusion
 
