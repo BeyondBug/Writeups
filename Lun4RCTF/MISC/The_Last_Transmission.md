@@ -1,4 +1,4 @@
-# The Last Transmission — CTF Write-up
+# The Last Transmission
 
 **Category:** Forensics / Reverse Engineering / OSINT  
 **CTF:** Lun4R CTF  
@@ -48,6 +48,10 @@ with zipfile.ZipFile(zip_path, "r") as z:
     print("Sample files:", [e.filename for e in entries[:6]])
 ```
 
+
+<img width="1600" height="156" alt="image" src="https://github.com/user-attachments/assets/c0b644e5-2c1c-4ad5-9292-c4808152c859" />
+
+
 **Results:**
 
 - 792 total entries — 581 files, 211 directories
@@ -62,6 +66,9 @@ Searching for the station designation using variations such as `Lun4r17`, `LUN4R
 
 **https://github.com/nox7392/lun4r17**
 
+<img width="1600" height="848" alt="image" src="https://github.com/user-attachments/assets/bfa9dcc2-5490-4e0a-83d0-7e4a36caf283" />
+
+
 The repository is linked to the operator handle `nox7392`.
 
 ### Key Discovery — Deleted File in Git History
@@ -75,6 +82,9 @@ def legacy_key(operator, station, relay, cycle):
     relay    = relay.lower().replace("-", "")
     return f"{operator}{station}{relay}{cycle}"
 ```
+
+<img width="1600" height="776" alt="image" src="https://github.com/user-attachments/assets/1249eb47-dc9f-46fc-96ba-c6e0a229c574" />
+
 
 This is the exact function needed to reconstruct the ZIP password.
 
@@ -115,6 +125,10 @@ with zipfile.ZipFile(zip_path, "r") as z:
 
 print("[+] Archive successfully decrypted and extracted.")
 ```
+
+
+<img width="1600" height="81" alt="image" src="https://github.com/user-attachments/assets/381bb09f-a125-47f1-a4d5-c23756b9b64b" />
+
 
 After extraction, the directory structure is:
 
@@ -336,6 +350,10 @@ if __name__ == "__main__":
     print(f"[+] Recovered Payload: {payload}")
     print(f"[+] Flag: {flag}")
 ```
+
+
+<img width="1600" height="782" alt="image" src="https://github.com/user-attachments/assets/529285c2-9529-447a-a8bd-e86240c8ba7d" />
+
 
 ## Step 8 — Result
 
