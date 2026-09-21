@@ -182,6 +182,9 @@ The log contains:
 dim_checksum=0xA278
 ```
 
+<img width="1293" height="195" alt="image" src="https://github.com/user-attachments/assets/c5273ed6-d508-4f74-a613-3758f384d28e" />
+
+
 According to the instructions in `researcher.note`, this value must be encoded as an unsigned 16-bit integer using **big-endian byte order**.
 
 Therefore:
@@ -297,6 +300,9 @@ Everything after the IV is ciphertext.
 
 ---
 
+<img width="1815" height="237" alt="image" src="https://github.com/user-attachments/assets/7d0a2e3c-4d4c-435e-9d69-f51216e4d534" />
+
+
 # 7. AES-256-CTR Decryption
 
 The researcher instructions indicate that the checkpoint was encrypted using AES in CTR mode.
@@ -354,6 +360,10 @@ where:
 ```text
 N = 5
 ```
+
+
+<img width="1235" height="239" alt="image" src="https://github.com/user-attachments/assets/26c94e71-9973-4caa-9f26-ced34d9f00e8" />
+
 
 The journal additionally records the destination offset associated with each physical segment.
 
@@ -540,6 +550,10 @@ would therefore produce an invalid checkpoint.
 
 ---
 
+
+<img width="961" height="725" alt="image" src="https://github.com/user-attachments/assets/74796e87-633e-47b9-a150-96aa459a75e4" />
+
+
 # 13. Integrity Verification
 
 Before trusting the fragments, their integrity needs to be checked.
@@ -547,6 +561,9 @@ Before trusting the fragments, their integrity needs to be checked.
 `integrity.report` contains expected CRC/hash values for the checkpoint chunks.
 
 Most chunks pass validation.
+
+<img width="1024" height="512" alt="image" src="https://github.com/user-attachments/assets/4aa00dad-921f-43ed-b8f3-ae6491857083" />
+
 
 One does not:
 
