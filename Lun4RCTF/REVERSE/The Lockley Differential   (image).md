@@ -19,6 +19,9 @@ cd work/differential
 file reference chall
 ```
 
+<img width="1600" height="637" alt="image" src="https://github.com/user-attachments/assets/8950268a-c978-473c-9128-d4de9c0c93cd" />
+
+
 Both binaries are stripped ELF executables that accept a single 40-byte argument. Rejection messages are phase-specific and report the failing glyph index (e.g. `[-] [MIDNIGHT-MISSION-2.2] Incantation rejected at glyph 0`). While useful for probing, the index alone is insufficient because the transformations are stateful.
 
 The expected final output (40 bytes) is embedded at virtual/file offset `0x3000`:
@@ -66,6 +69,9 @@ b *0x5555555548f2
 continue
 x/256bx $rsp+0x40
 ```
+
+<img width="1600" height="153" alt="image" src="https://github.com/user-attachments/assets/7b689064-2254-4b38-bf9c-42240309fde2" />
+
 
 The resulting bytes were saved as `runtime_sbox.bin` and loaded by the solver.  
 
@@ -135,6 +141,9 @@ inp[i] = ROL8(low8(eax), 3) ⊕ out[i] ⊕ 0x7c
 
 ---
 
+<img width="1600" height="268" alt="image" src="https://github.com/user-attachments/assets/9e8d5a63-94db-48ec-b0e8-89c152446fd7" />
+
+
 ## 6. Phase 3 — Jake State Machine
 
 Processes left-to-right with:
@@ -175,7 +184,10 @@ Forward computation order:
 input → Steven → Marc → Jake → target
 ```
 
-Therefore invert in reverse:
+<img width="1600" height="77" alt="image" src="https://github.com/user-attachments/assets/b6842fd8-5158-40f0-8657-424f5f14f8b2" />
+
+
+>Therefore invert in reverse:
 
 ```
 target
@@ -224,7 +236,10 @@ Output:
     Flag: Lun4R{j4k3_l0ckl3y_th3_th1rd_4lt3r_2026}
 ```
 
-An independent forward re-implementation of all three phases confirms that the recovered input produces the embedded 40-byte target.
+<img width="1600" height="94" alt="image" src="https://github.com/user-attachments/assets/130e2aae-801a-4f98-9ce5-7a4922caf5ea" />
+
+
+>An independent forward re-implementation of all three phases confirms that the recovered input produces the embedded 40-byte target.
 
 ---
 
