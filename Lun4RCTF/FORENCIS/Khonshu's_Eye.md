@@ -1,4 +1,4 @@
-<img width="1600" height="866" alt="WhatsApp Image 2026-09-21 at 11 58 52 AM" src="https://github.com/user-attachments/assets/c150bc0b-6be9-4b4a-96fb-df3c5535a64f" /># Khonshu's Eye 
+# Khonshu's Eye 
 
 **Category:** Forensics / Steganography  
 **Flag Format:** `Lun4R{...}`
