@@ -51,7 +51,7 @@ Inspecting the commit and its deleted files reveals `archive-verification.txt`:
 git show d7c82ad --stat
 git show d7c82ad -- archive-verification.txt
 ```
-![image](https://raw.githubusercontent.com/BeyondBug/Writeups/refs/heads/main/Lun4RCTF/OSINT/Elias_Voss_wrtieup/Screenshot%202026-09-21%20085036.png)
+<img width="995" height="1001" alt="image" src="https://github.com/user-attachments/assets/230378d5-e3ed-4ad5-8a7d-00731a5c86ca" />
 
 The file contains the following decisive text:
 
