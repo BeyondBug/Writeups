@@ -1,12 +1,11 @@
-# Lunar Dynamics - The Missing Developer
+# Ghost Developer
 
 ## Challenge Information
 
-- **Challenge name:** Lunar Dynamics - The Missing Developer
+- **Challenge name:** Ghost Developer
 - **Category:** Open-source intelligence and Git forensics
 - **Difficulty:** Lite
 - **Flag format:** `Lun4R{...}`
-- **Final flag:** `Lun4R{NF9-27-LUN4R}`
 
 ## Summary
 
@@ -90,11 +89,3 @@ Lun4R{NF9-27-LUN4R}
 [3]: https://git-scm.com/docs/git-show "Git show documentation"
 
 [4]: https://git-scm.com/docs/git-log "Git log documentation"
-
-## Disclaimer
-
-This write-up describes analysis of a fictional CTF challenge and its intentionally public repository artifacts. It does not establish real-world facts about any person or organization named in the scenario.
-
----
-
-*End of write-up.*
