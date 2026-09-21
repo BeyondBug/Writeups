@@ -572,7 +572,9 @@ Each tool served a specific purpose:
 
 ---
 
-![Uploading image.png…]()
+
+<img width="875" height="156" alt="image" src="https://github.com/user-attachments/assets/d9431c07-4c3b-4a66-8a8c-456048e8accd" />
+
 
 
 # 15. Conclusion
