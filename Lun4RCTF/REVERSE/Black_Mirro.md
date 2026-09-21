@@ -1,24 +1,8 @@
-# Black Mirror — Lun4R CTF 2026 Write-Up
+# Black Mirror 
 
 > **Category:** Reverse Engineering  
 > **Flag Format:** `lun4r{...}`  
 > **Author:** ROOT RIET CTF Team  
-
----
-
-## Table of Contents
-
-1. [Challenge Overview](#1-challenge-overview)
-2. [First Contact — What We Are Given](#2-first-contact--what-we-are-given)
-3. [Anti-Analysis and Decoy Traps](#3-anti-analysis-and-decoy-traps)
-4. [Protected Memory Decryption Pipeline](#4-protected-memory-decryption-pipeline)
-5. [Virtual Machine Architecture](#5-virtual-machine-architecture)
-6. [The Four-Layer Validation Pipeline](#6-the-four-layer-validation-pipeline)
-7. [Inverting Each Layer to Recover the Access Code](#7-inverting-each-layer-to-recover-the-access-code)
-8. [Final Flag](#8-final-flag)
-9. [Summary Cheat Sheet](#9-summary-cheat-sheet)
-
----
 
 ## 1. Challenge Overview
 
@@ -30,7 +14,7 @@ The difficulty lies in three concentric layers of obfuscation: a sophisticated a
 
 ---
 
-## 2. First Contact — What We Are Given
+## 2. First Contact - What We Are Given
 
 Running `file black_mirror` tells us it is a dynamically linked ELF 64-bit x86-64 executable. Running it without arguments prompts:
 
@@ -115,11 +99,11 @@ Once decrypted, the 2185-byte payload contains all the parameters for the four-l
 
 The binary implements a two-stage virtual machine. This design adds an extra layer of complexity for an analyst: you cannot simply follow the code linearly because the "code" being executed is data produced at runtime.
 
-### 5.1 Stage 1 — Initialization
+### 5.1 Stage 1 - Initialization
 
 `vm_stage1`, disassembled around address `0x3b90`, is responsible for bootstrapping VM state from the decrypted payload. It reads the permutation table, the S-Box, the matrix, the round constants, and the target vector, and copies them into a VM context structure that is passed to Stage 2. Stage 1 also seeds the VM's register file with initial values derived from the header nonce, making the register state unique to each binary instance. This ensures that even if two CTF competitors compare notes on "register values", they are looking at the same challenge.
 
-### 5.2 Stage 2 — Bytecode Dispatch
+### 5.2 Stage 2 - Bytecode Dispatch
 
 `vm_dispatch`, disassembled around address `0x3fb0`, is the main execution engine. It implements a simple stack-based VM with a custom instruction set. The key opcodes drive the four-layer transformation: one opcode performs the permutation, one the S-Box lookup, one the matrix-vector multiplication, and one triggers the Feistel network evaluation. A final comparison opcode checks the VM's output registers against the target vector. Additional opcodes exist for stack manipulation, loop control, and the conditional branch that leads to either the flag-print path or silent failure.
 
@@ -133,7 +117,7 @@ When you type the 32-character access code (hyphens stripped), the binary treats
 
 The four layers are applied in this order: **Permutation → S-Box Substitution → Matrix Multiplication mod 32 → Feistel Network**.
 
-### 6.1 Layer 1 — Permutation
+### 6.1 Layer 1 - Permutation
 
 The permutation table `P` is a 32-element array that is a bijection of `{0, 1, ..., 31}`. The permutation operates on the *positions* of the 32-element input vector. Specifically, the output vector `out` is defined by:
 
@@ -141,11 +125,11 @@ The permutation table `P` is a 32-element array that is a bijection of `{0, 1, .
 
 In plain terms: the byte at position `P[i]` in the input is moved to position `i` in the output. This is a classical position permutation identical to what you see in DES key schedules or block cipher diffusion layers.
 
-### 6.2 Layer 2 — S-Box Substitution
+### 6.2 Layer 2 - S-Box Substitution
 
 The S-Box `S` is also a 32-element bijection of `{0, 1, ..., 31}`. It operates on the *values* of the 32-element vector, not the positions. For each element `v` in the permuted vector, the substituted value is `S[v]`. Since `S` is a permutation, every value 0–31 appears exactly once in its codomain, making the substitution trivially invertible.
 
-### 6.3 Layer 3 — Matrix Multiplication mod 32
+### 6.3 Layer 3 - Matrix Multiplication mod 32
 
 The 4×4 lower-triangular matrix `M` (with non-zero diagonal) acts on the S-Box output, but not all 32 elements at once. The 32-element vector is divided into eight consecutive 4-element chunks. Each chunk is treated as a column vector in `Z/32Z` and multiplied by `M`. The result is an 8-element collection of 4-element output chunks, which are concatenated back into a 32-element vector.
 
@@ -169,7 +153,7 @@ y2 =  7*x0 + 27*x1 +  7*x2          mod 32
 y3 =  6*x0 +  6*x1 + 19*x2 + 9*x3  mod 32
 ```
 
-### 6.4 Layer 4 — Feistel Network
+### 6.4 Layer 4 - Feistel Network
 
 The Feistel network operates on the 32-element vector after the matrix stage. The 32 elements are split into two halves: the Left half (elements 0–15) and the Right half (elements 16–31). Each half is treated as a 16-element block of 20-bit integers — or more precisely, as 16 values each in the range 0–31, which are packed conceptually into 20-bit words for the round function arithmetic.
 
@@ -267,6 +251,8 @@ The flag is:
 
 > **`lun4r{v1rtual_m1rr0rs_h1de_the_truth}`**
 
+<img width="930" height="109" alt="image" src="https://github.com/user-attachments/assets/a6db7464-e857-4ef2-81fa-06004fa60540" />
+
 ---
 
 ## 9. Summary Cheat Sheet
@@ -285,16 +271,4 @@ The flag is:
 | Invert permutation | Build reverse lookup | `P_inv[P[i]] = i` |
 | Format output | Map values to alphabet, insert hyphens | Groups of 4, 8 groups total |
 | Access code | `T7WZ-XRGR-SEWF-4ZWY-W82M-BXGU-NBSL-NCVL` | Feed to binary |
-| Flag | `lun4r{v1rtual_m1rr0rs_h1de_the_truth}` | ✓ |
-
----
-
-### Key Insight Recap
-
-The entire challenge is a **three-ring obfuscation** designed to waste your time at every layer:
-
-1. **Decoys at the surface** — strings and fake flags to mislead `strings` and naive analysis.
-2. **Encryption in the middle** — the real parameters are hidden in an AES/ChaCha20 protected blob so static analysis gives nothing.
-3. **Mathematical transformation at the core** — four invertible layers that are easy to verify forward but require deliberate algebraic reasoning to reverse.
-
-None of these rings are individually unbreakable. The permutation and S-Box are trivially invertible once you have the tables. The matrix is invertible because the author chose odd diagonal values. The Feistel is invertible by construction. And the encryption is broken by the fact that the key material lives in the same binary — you just have to find it. The challenge is in peeling each ring in the right order with patience and careful analysis.
+| Flag | `lun4r{v1rtual_m1rr0rs_h1de_the_truth}` | done |
