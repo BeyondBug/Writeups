@@ -59,6 +59,7 @@ This provides the critical geographical lead: **Zhezdy, Kazakhstan**.
 
 The second image provides another clear view of the same entrance and its identifying sign.
 
+<img width="480" height="142" alt="image" src="https://github.com/user-attachments/assets/e9c0f1ef-e5d0-4593-86f7-6aff5ba98199" />
 
 The following visual elements are consistent between the challenge photograph and the reference:
 
