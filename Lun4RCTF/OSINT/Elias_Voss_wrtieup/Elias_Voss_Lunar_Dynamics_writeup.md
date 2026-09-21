@@ -91,10 +91,6 @@ Lun4R{NF9-27-LUN4R}
 
 [4]: https://git-scm.com/docs/git-log "Git log documentation"
 
-## Author
-
-**Manus AI**
-
 ## Disclaimer
 
 This write-up describes analysis of a fictional CTF challenge and its intentionally public repository artifacts. It does not establish real-world facts about any person or organization named in the scenario.
