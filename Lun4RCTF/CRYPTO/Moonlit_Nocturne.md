@@ -26,6 +26,9 @@ for i, track in enumerate(mid.tracks):
         print(msg)
 ```
 
+<img width="1600" height="367" alt="image" src="https://github.com/user-attachments/assets/70f37081-8674-4c49-8a90-0b33299aa698" />
+
+
 The file contains multiple tracks and a sequence of note events with varying properties.
 
 ---
@@ -59,6 +62,9 @@ This message indicates that the next layer of data is encoded in event timing ra
 
 ---
 
+<img width="1600" height="425" alt="image" src="https://github.com/user-attachments/assets/53ae9d8d-5abc-4ab2-aead-d7dc82c97482" />
+
+
 ## Step 3 — Timing Steganography
 
 MIDI events carry delta-time values. Two dominant intervals appear:
@@ -89,6 +95,9 @@ Applying a Vigenère cipher with this key decrypts the ciphertext to:
 ```
 TH3_M00N_S1NGS_WH4T_TH3_N1GHT_H1D3S
 ```
+
+<img width="1600" height="146" alt="image" src="https://github.com/user-attachments/assets/59fe898f-88e2-4762-9a58-d107bc4a5822" />
+
 
 ---
 
