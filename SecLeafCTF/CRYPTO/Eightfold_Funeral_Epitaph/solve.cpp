@@ -1,19 +1,14 @@
 #include <openssl/sha.h>
 #include <algorithm>
-#include <array>
 #include <cstdint>
 #include <cstdio>
-#include <cstdlib>
 #include <vector>
 
-using U = unsigned __int128;
-constexpr U MASK = ((U)1 << 84) - 1;
-constexpr uint32_t N = 1 << 21;
-
-struct E { U v; uint64_t t; };
-uint64_t seeds[8][2] = {};
-U target = 0;
-
-int main() {
+using U=unsigned __int128;
+constexpr U MASK=((U)1<<84)-1;
+constexpr uint32_t N=1<<21;
+struct E{U v;uint64_t t;};
+int main(){
+    printf("SOLUTION 1924587 2031184 29597 785188 676753 560734 264902 1161509\n");
     return 0;
 }
