@@ -74,7 +74,7 @@ Then reading the hidden flag file at `/root/root/.../flag.txt`:
 bG9jYWxfZXNjbDR0M19yMDB0
 ```
 
-![](<img width="356" height="293" alt="image" src="https://github.com/user-attachments/assets/e75b26a6-9f08-4aee-bfda-6cc482bf0f11" />)
+![](https://github.com/BeyondBug/Writeups/blob/3bfd2b9075e5ccb9918c11d85af33d7d70738112/SecLeafCTF/MISC/images/WhatsApp%20Image%202026-11-02%20at%2010.03.44%20AM.jpeg)
 
 
 The payload is Base64 encoded. I decoded it directly on the command line:
