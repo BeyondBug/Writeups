@@ -19,6 +19,8 @@ $\text{key\_block} = \text{wrapped}^d \bmod N$
 Taking the trailing 32 bytes extracts the AES-256 key:
 `078440dd9f8c28d0a8e90f37efd987f736e67023762a2bfbe32cbac9d7afa8d7`
 
+![Container Layout and Key Recovery](analysis.png)
+
 ### Layer 2: AES-256-CBC Decryption
 Decrypting the 608 ciphertext bytes using the recovered key and IV, then stripping 11 bytes of PKCS#7 padding (`0x0b`), yields a 597-byte intermediate stream.
 
@@ -64,6 +66,14 @@ print("\nFlag:", flag)
 ```
 
 ### Decrypted Report Excerpt & Flag
+Executing `solve.py` to decrypt the payload and extract the asset key:
+
+```bash
+$ python3 solve.py
+```
+
+![Flag Execution Proof](flag.png)
+
 ```text
 CLASSIFIED INTEL REPORT
 ==============================================
