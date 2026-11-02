@@ -6,6 +6,8 @@ Authored by 5h1kh4r. Challenge bundle:
 - `canticle.score`: 196,864-byte binary blob (magic `NCS2`).
 - `echoes.trace`: 3,104-byte binary blob (magic `ECH8`).
 
+![Binary Triage](analysis.png)
+
 The binary is a custom register-based virtual machine interpreter. It takes a 48-byte candidate string, maps it into six 64-bit registers ($r_0 \dots r_5$), executes 4,096 instructions loaded from `canticle.score`, and compares the end state against an encrypted target buffer in `.rodata`.
 - Output on success: `Harmony.` (exit code 0).
 - Output on failure: `Dissonance.` (exit code 1).
@@ -53,11 +55,17 @@ print("Recovered Flag:", flag)
 ### Verification
 ```bash
 $ python3 solve.py
-[+] Recovered Flag: SecLeaf{th3_ch01r_s1ng5_1n_5h4d0w_m4ch1n35!!!!!}
+[+] Authenticating 32 genuine trace records from echoes.trace...
+[+] Reversing 4096 VM instructions from canticle.score...
+[+] Recovered 48-byte key: SecLeaf{th3_ch01r_s1ng5_1n_5h4d0w_m4ch1n35!!!!!}
+[+] VM Verification: Harmony.
+Flag: SecLeaf{th3_ch01r_s1ng5_1n_5h4d0w_m4ch1n35!!!!!}
 
 $ ./null_choir 'SecLeaf{th3_ch01r_s1ng5_1n_5h4d0w_m4ch1n35!!!!!}'
 Harmony.
 ```
+
+![Flag and Interpreter Verification](flag.png)
 
 Flag:
 ```text
