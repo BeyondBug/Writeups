@@ -67,6 +67,16 @@ $ echo -n "L52GQM27PBQXI5DSL5ZDG3JTNVRDG4TT" | base32 -d
 _th3_xattr_r3m3mb3rs
 ```
 
+![Triage and Attribute Carving](analysis.png)
+
+Running `solve.py` to combine both halves:
+
+```bash
+$ python3 solve.py
+```
+
+![Flag Proof](flag.png)
+
 Combined both halves:
 ```text
 SecLeaf{d3l3t3d_k3ys_n3v3r_d13_th3_xattr_r3m3mb3rs}
