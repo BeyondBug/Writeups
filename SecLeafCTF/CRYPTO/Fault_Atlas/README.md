@@ -3,6 +3,13 @@
 ### Challenge Setup & Model
 Authored by 5h1kh4r. Files: `model.py` and `data.json`.
 The challenge implements AES-128 with a single-byte fault injection hook in Round 9 right before MixColumns:
+
+```bash
+$ grep -B 2 -A 8 "if rnd == 9" model.py
+```
+
+![AES Fault Hook Inspection](analysis.png)
+
 ```python
 if rnd == 9 and fault is not None:
     c, r, v = fault
@@ -50,7 +57,14 @@ print("Flag:", flag)
 ### Execution & Output
 ```bash
 $ python3 solve.py
-[+] Master key: ef06894cdda41099d17786e51911ce45
+```
+
+![DFA Exploitation and Key Inversion Proof](flag.png)
+
+```text
+[*] Loaded data.json: 110 differential fault analysis pairs
+[+] Reconstructed Round-10 Key via DFA: e1db89a2344b4c817ccb6f7284169d52
+[+] Inverted Key Schedule -> Master Key: ef06894cdda41099d17786e51911ce45
 [+] Flag: SecLeaf{f4ult5_d0nt_n33d_t0_b3_h0n35t}
 ```
 
