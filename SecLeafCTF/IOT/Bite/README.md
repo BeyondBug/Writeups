@@ -17,6 +17,8 @@ $ mosquitto_sub -h iot.secleaf.xyz -p 1883 -t '#' -v
 Connection error: Connection Refused: not authorised.
 ```
 
+![Port Scan and Anonymous Probe](analysis.png)
+
 Anonymous access was disabled (`allow_anonymous false`). With no rate limiting on the port, spun up a quick multi-threaded python brute-forcer over standard IoT usernames and rockyou:
 
 ```python
@@ -54,12 +56,13 @@ for _ in range(25): threading.Thread(target=worker).start()
 Hit credentials almost instantly:
 `user : forever1`
 
-Connected back with `mosquitto_sub` using the `#` wildcard to listen across all topics:
+Connected back with credentials or running `solve.py` to pull the retained message:
 
 ```bash
-$ mosquitto_sub -h iot.secleaf.xyz -p 1883 -u user -P forever1 -t '#' -v
-secleaf/flag SecLeaf{mqTT_Br0k3r@$}
+$ python3 solve.py
 ```
+
+![Flag Extraction Proof](flag.png)
 
 The broker dropped the retained flag immediately:
 ```text
