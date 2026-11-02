@@ -64,16 +64,16 @@ That error line looked garbled, but looking at `SjcCenft...` against the standar
 
 Every odd character was XORed with `0x0F` (matching the hint `KEY_15_00f` in `.env.example`), while even characters were untouched.
 
+![Log Analysis](analysis.png)
+
 ### Reversing the XOR
-Ran a quick python one-liner:
+Ran a quick python one-liner or `solve.py`:
 
 ```bash
-$ python3 -c '
-enc = b"SjcCenftl<g;cV_}eh1|T}YPm>g}a[1`nP274r"
-print(bytes(b ^ (0x0f if i % 2 == 1 else 0x00) for i, b in enumerate(enc)).decode())
-'
-SecLeaf{l3g4cY_reg1sTrY_m1graT1on_284}
+$ python3 solve.py
 ```
+
+![Flag Proof](flag.png)
 
 Flag:
 ```text
