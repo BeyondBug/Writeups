@@ -7,6 +7,8 @@ There's also a one-time promo voucher worth 50L. Even if you claim it, you're on
 ### Spotting the Race Window
 Browsing to `/billing-code` conveniently showed the backend Python handler for `/voucher/redeem`:
 
+![Billing Code Source Leak](analysis.png)
+
 ```python
 @app.post("/voucher/redeem")
 @login_required
@@ -75,10 +77,16 @@ if litres >= 1000:
 ```
 
 ### Result
-Ran the script:
+Ran the exploit script:
+```bash
+$ python3 solve.py
+```
+
+![Race Condition Exploitation Proof](flag.png)
+
 ```text
-[+] 200 OKs: 32
-[+] Balance: 1700L
+[+] 200 OKs: 40
+[+] Balance: 2100L
 [!] Flag: SecLeaf{ch3ck_f1r5t_wr1t3_l4t3r_b00m}
 ```
 
