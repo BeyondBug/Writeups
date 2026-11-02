@@ -14,6 +14,8 @@ Notice the two custom headers right away:
 - `X-Drip: S`
 - `X-Drip-Serial: 1/40`
 
+![DevTools Network Analysis](analysis.png)
+
 It's leaking the flag one character at a time across 40 total indices. Sending requests with the same `work_order` cookie yielded random positions (`14/40`, `27/40`, `3/40`, etc.). 
 
 Wrote a quick dirty python script using `requests.Session()` to loop until all 40 slots were filled:
@@ -39,6 +41,12 @@ print("Flag:", flag)
 ```
 
 Ran the script, grabbed all 40 drops, and stitched the flag:
+
+```bash
+$ python3 solve.py
+```
+
+![Flag Execution Proof](flag.png)
 
 ```text
 SecLeaf{h34d3r5_l34k_0n3_dr1p_4t_4_t1m3}
