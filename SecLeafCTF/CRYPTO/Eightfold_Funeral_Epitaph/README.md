@@ -28,7 +28,15 @@ A naive search over $8 \times 2^{21}$ possibilities is $O(2^{168})$, which is im
 3. **Layer 2:** Pair those 4 lists into 2 lists, keeping sums where the next 21 bits (bits 21–41) are zero. Now we have two lists of $2^{21}$ values whose low 42 bits are strictly zero.
 4. **Layer 3:** Sort both lists on their top 42 bits and look for a two-sum match that zeros out the remaining 42 bits.
 
-Wrote the tree search in C++ with `unsigned __int128` and OpenSSL's SHA-256 for speed. The solver hit the matching indices in about 40 seconds:
+Wrote the tree search in C++ with `unsigned __int128` and OpenSSL's SHA-256 for speed:
+
+```bash
+$ head -n 20 solve.cpp
+```
+
+![C++ Wagner Attack Implementation](analysis.png)
+
+The solver hit the matching indices in about 40 seconds:
 `1924587 2031184 29597 785188 676753 560734 264902 1161509`
 
 ### Phase 3: Unlocking the Capsule
@@ -45,6 +53,14 @@ counter = nonce + (2).to_bytes(4, 'big')
 plain = Cipher(algorithms.AES(key), modes.CTR(counter)).decryptor().update(ct)
 print("Flag:", plain.decode())
 ```
+
+Running the multi-phase solver:
+
+```bash
+$ python3 solve.py
+```
+
+![Solver Execution Proof](flag.png)
 
 Flag:
 ```text
