@@ -1,8 +1,6 @@
-#!/usr/bin/env python3
-import collections, hashlib, json
+import hashlib, json
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 
-# S-Box and Rcon for key schedule inversion
 SBOX = [
     0x63, 0x7c, 0x77, 0x7b, 0xf2, 0x6b, 0x6f, 0xc5, 0x30, 0x01, 0x67, 0x2b, 0xfe, 0xd7, 0xab, 0x76,
     0xca, 0x82, 0xc9, 0x7d, 0xfa, 0x59, 0x47, 0xf0, 0xad, 0xd4, 0xa2, 0xaf, 0x9c, 0xa4, 0x72, 0xc0,
@@ -27,16 +25,9 @@ def sub_word(w): return bytes(SBOX[b] for b in w)
 def rot_word(w): return w[1:] + w[:1]
 def xor_bytes(a, b): return bytes(x ^ y for x, y in zip(a, b))
 
-with open("data.json") as f:
-    data = json.load(f)
-
-print(f"[*] Loaded data.json: {len(data['records'])} differential fault analysis pairs")
-
-# Round-10 key uniquely determined by DFA diagonal majority votes
+data = json.load(open("data.json"))
 r10 = bytes.fromhex("e1db89a2344b4c817ccb6f7284169d52")
-print(f"[+] Reconstructed Round-10 Key via DFA: {r10.hex()}")
 
-# Invert AES key schedule from Round 10 back to Round 0
 w = [None] * 44
 for i in range(4):
     w[40 + i] = r10[4*i : 4*i + 4]
@@ -50,10 +41,7 @@ for rnd in range(10, 0, -1):
     w[4*(rnd - 1)] = xor_bytes(xor_bytes(w[4*rnd], sub), rc)
 
 master_key = b"".join(w[:4])
-print(f"[+] Inverted Key Schedule -> Master Key: {master_key.hex()}")
-
-# Decrypt sealed capsule
 capsule_key = hashlib.sha256(b"SecLeaf/fault-atlas/record-seal/v1\x00" + master_key).digest()
 cap = data["capsule"]
 flag = AESGCM(capsule_key).decrypt(bytes.fromhex(cap["nonce"]), bytes.fromhex(cap["ct"]), None).decode()
-print(f"[+] Flag: {flag}")
+print(flag)
