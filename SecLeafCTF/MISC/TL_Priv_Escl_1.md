@@ -74,6 +74,9 @@ Then reading the hidden flag file at `/root/root/.../flag.txt`:
 bG9jYWxfZXNjbDR0M19yMDB0
 ```
 
+![](<img width="356" height="293" alt="image" src="https://github.com/user-attachments/assets/e75b26a6-9f08-4aee-bfda-6cc482bf0f11" />)
+
+
 The payload is Base64 encoded. I decoded it directly on the command line:
 
 ```bash
