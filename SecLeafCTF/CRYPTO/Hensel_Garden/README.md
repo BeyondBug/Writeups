@@ -29,6 +29,9 @@ Because $M > 2^{128}$, the CRT reconstruction over $\mathbb{Z}/M\mathbb{Z}$ has 
 
 ### CRT Combination & Flag Recovery
 Combining the 4 roots from $\mathbb{Z}/2^{72}\mathbb{Z}$ with the 2 roots from $\mathbb{Z}/3^{51}\mathbb{Z}$ produces $4 \times 2 = 8$ candidates modulo $M$.
+
+![Hensel Lifting Modulus Analysis](analysis.png)
+
 Testing the bound condition $0 \le s < 2^{128}$ filters out the 7 invalid CRT residues, uniquely recovering the seed:
 `s = 282779946134366997745983790016833981964`
 
@@ -56,7 +59,12 @@ print("Flag:", flag)
 ### Execution Output
 ```bash
 $ python3 solve.py
-[+] Recovered Seed: 282779946134366997745983790016833981964
+```
+
+![Flag Execution Proof](flag.png)
+
+```bash
+[+] Recovered 128-bit seed: 282779946134366997745983790016833981964
 [+] Flag: SecLeaf{r00ts_gr0w_through_pr1me_p0w3rs}
 ```
 
