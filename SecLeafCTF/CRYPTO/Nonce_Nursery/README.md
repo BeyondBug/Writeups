@@ -8,6 +8,13 @@ $k_{j+1} \equiv A \cdot k_j + B \pmod N$
 The starting index of this length-5 sequence is unknown, but with only 11 signatures, there are only 7 possible window offsets ($start \in [0, 6]$).
 
 ### Nonce Representation in Private Key $d$
+Inspecting the signature records from `data.json`:
+```bash
+$ head -n 25 data.json
+```
+
+![Signature Records Inspection](analysis.png)
+
 In ECDSA, each signature $(r_i, s_i)$ on message hash $h_i$ relates to the private key $d$ via:
 $k_i \equiv s_i^{-1} h_i + (s_i^{-1} r_i) \cdot d \equiv \alpha_i + \beta_i \cdot d \pmod N$
 Where $\alpha_i$ and $\beta_i$ are publicly known constants for each signature.
@@ -72,8 +79,15 @@ for start in range(len(sigs) - 4):
 ```
 
 ### Output
+Running the algebraic solver:
+```bash
+$ python3 solve.py
+```
+
+![Solver Execution Proof](flag.png)
+
 ```text
-[+] LCG window detected at indices 3..7
+[+] Found affine sequence at window indices 3..7
 [+] Recovered private key d: 112265246509443991793501805575047025825485946730594207565612276875367956223710
 [+] Flag: SecLeaf{4ff1n3_n0nc3s_b3nd_th3_curv3}
 ```
