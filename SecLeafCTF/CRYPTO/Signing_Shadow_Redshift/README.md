@@ -6,7 +6,13 @@ The verification equation in `model.py` is standard Schnorr:
 `g^s = R * pub^e (mod p)` with `e = SHA256(domain || msg || R) mod q`
 
 ### Spotting the Real Weakness
-Before going down a rabbit hole trying to analyze the timestamp stamps or build a hidden number problem (HNP) lattice on the signature nonces, I checked the group parameters in `data.json`:
+Before going down a rabbit hole trying to analyze the timestamp stamps or build a hidden number problem (HNP) lattice on the signature nonces, I checked the group parameters in `challenge/data.json`:
+```bash
+$ head -n 20 challenge/data.json
+```
+
+![Group Parameters and Target Logs](analysis.png)
+
 - Modulus $p$ is a 161-bit prime (49 decimal digits).
 - Subgroup order $q$ is a 160-bit prime.
 
@@ -58,6 +64,15 @@ print("Flag:", flag)
 
 Ran the script and got the flag:
 
+```bash
+$ python3 solve.py
+```
+
+![Solver Execution Proof](flag.png)
+
 ```text
-SecLeaf{cl0ck_drift_c4nt_h1de_a_shad0w}
+[+] Group modulus p: 161-bit prime (vulnerable to NFS DLP)
+[+] Subgroup order q: 160-bit prime
+[+] Recovered Private Scalar: 0xa13f9648f4f4e416a02f1f0ced932692aca4701
+[+] Flag: SecLeaf{cl0ck_drift_c4nt_h1de_a_shad0w}
 ```

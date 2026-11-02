@@ -1,0 +1,12 @@
+{
+  "p": "0x165101dc860eb9b2360a4752d59ad33ac7c4d309f",
+  "q": "0xb2880ee43075cd91b0523a96acd699d63e26984f",
+  "g": "0x4",
+  "pub": "0x1d84771b3762e806a22c3856fac9d2eaf1caab68",
+  "log_g": "0x780c44f7826ad3cc3ee40a979a627f18a9a4b36a",
+  "log_pub": "0x3cb323a205ad2c7f82533d232d810112940cbcc9",
+  "sealed": {
+    "nonce": "4f1eb975f6d344cadc743dd7",
+    "ct": "cb81f7dcc2c646e01716d2cfe4b41db23fb5c004d1b2f6e9a79cbd248cb8610869ae8d2acb964bf2ecfe4aaa6420b530647b3463c74fb9"
+  }
+}
