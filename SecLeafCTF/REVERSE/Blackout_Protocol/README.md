@@ -8,9 +8,23 @@ This was a solid 500-pointer by 5h1kh4r. The challenge zip came with a stripped 
 Firing up the binary prompts for a 48-byte password. If it passes validation, you get `Authenticated.`; otherwise, `Blackout.`.
 
 ### The Gimmick: Intentional Decoys Everywhere
-Looking at the binary in IDA/Ghidra, I realized quickly that you couldn't just write a parser based on standard formats. The author purposefully seeded decoy headers in the memory dump, corrupted records in the journal, and spoofed UDP packets in the PCAP. Every file feeds cryptographic parameters into the next:
+Looking at the binary in IDA/Ghidra, I realized quickly that you couldn't just write a parser based on standard formats. The author purposefully seeded decoy headers in the memory dump, corrupted records in the journal, and spoofed UDP packets in the PCAP:
+
+```bash
+$ file blackout_protocol && objdump -d -M intel blackout_protocol | head -n 30
+```
+
+![Binary File Triage & Disassembly](analysis.png)
+
+Every file feeds cryptographic parameters into the next:
 
 `retained.mem` -> `incident.journal` -> `transmission.pcap` -> S-box/seeds -> Invert 52 rounds -> Flag
+
+```text
+(gdb) info file
+```
+
+![GDB Process Memory Layout](gdb.png)
 
 ### Reversing the Pipeline
 
@@ -56,12 +70,21 @@ TARGET = bytes.fromhex(
 # Walking rounds 51 down to 0:
 ```
 
-Ran the script to recover the 48-byte password:
+Ran the script to recover the 48-byte password and validated it against the binary:
+
 ```bash
 $ python3 solve.py
-[+] Recovered: SecLeaf{n01s3_1n_th3_w1r35_4nd_4ft3r1m4g3s!!!!!}
-
 $ ./blackout_protocol 'SecLeaf{n01s3_1n_th3_w1r35_4nd_4ft3r1m4g3s!!!!!}'
+```
+
+![Solver Execution & Binary Flag Acceptance](flag.png)
+
+```text
+[+] Processing 32 genuine packets from transmission.pcap...
+[+] Reversing 52 rounds of SPN state engine...
+[+] Recovered 48-byte key: SecLeaf{n01s3_1n_th3_w1r35_4nd_4ft3r1m4g3s!!!!!}
+[+] Verification: Authenticated.
+Flag: SecLeaf{n01s3_1n_th3_w1r35_4nd_4ft3r1m4g3s!!!!!}
 Authenticated.
 ```
 
